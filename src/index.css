@@ -170,3 +170,9 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.coupon-table {
+  width: 200px;
+  max-height: 200px;
+  overflow-y: auto;
+}

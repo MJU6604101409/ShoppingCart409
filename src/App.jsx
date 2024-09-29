@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { people } from './data.js';
-import { getImageUrl } from './utils.js';
+// import { useState } from 'react';
+// import { people } from './data.js';
+// import { getImageUrl } from './utils.js';
  
 // export default function List() {
 //   const chemists = people.filter(person =>
@@ -51,7 +51,8 @@ import { getImageUrl } from './utils.js';
   //    </article>
   //   );
   //   }
-  
+  import { useState } from 'react';
+
   const productsData = [
   { id: 1, name: 'หมูสามชั้น', price: 59, image: '/picture/สามชั้น.jpg' },
   { id: 2, name: 'หมูหมักน้ำมันงา', price: 69, image: '/picture/หมักงา.png' },
@@ -63,6 +64,12 @@ import { getImageUrl } from './utils.js';
   { id: 8, name: 'ผักบุ้ง', price: 19, image: '/picture/ผักบุ้ง.png' },
   { id: 9, name: 'เฟรนช์ฟรายส์', price: 39, image: '/picture/เฟรนช์ฟรายส์.jpg' },
   { id: 10, name: 'ไอศกรีม', price: 39, image: '/picture/ice cream.jpg' },
+];
+
+const coupons = [
+  { code: 'DISCOUNT10', discount: 0.1 },
+  { code: 'DISCOUNT20', discount: 0.2 },
+  { code: 'SHIPFREE', discount: 0.15 }
 ];
 
 function App() {
@@ -97,14 +104,13 @@ function App() {
   };
 
   const handleApplyDiscount = (coupon) => {
-    if (coupon === 'DISCOUNT10') {
-      setDiscount(0.1);
-      setDiscountError('');
-    } else if (coupon === 'DISCOUNT20') {
-      setDiscount(0.2);
+    const validCoupon = coupons.find(c => c.code === coupon);
+    if (validCoupon) {
+      setDiscount(validCoupon.discount);
       setDiscountError('');
     } else {
       setDiscountError('Invalid coupon code.');
+      setDiscount(0);
     }
   };
 
@@ -167,6 +173,18 @@ function App() {
           />
           {discountError && <p className="text-red-500">{discountError}</p>}
         </div>
+      </div>
+    
+    {/* กล่องแสดงตารางคูปองที่มุมขวาล่าง */}
+    <div className="coupon-table fixed bottom-0 right-0 bg-gray-100 border p-4 m-4 shadow-lg">
+        <h3 className="text-lg font-bold">ตารางคูปอง</h3>
+        <ul>
+          {coupons.map(coupon => (
+            <li key={coupon.code}>
+              <span>{coupon.code}: ลด {coupon.discount}%</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
