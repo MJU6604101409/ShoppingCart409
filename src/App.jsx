@@ -53,16 +53,16 @@ import { getImageUrl } from './utils.js';
   //   }
   
   const productsData = [
-  { id: 1, name: 'Product 1', price: 500, image: 'https://via.placeholder.com/150' },
-  { id: 2, name: 'Product 2', price: 600, image: 'https://via.placeholder.com/150' },
-  { id: 3, name: 'Product 3', price: 700, image: 'https://via.placeholder.com/150' },
-  { id: 4, name: 'Product 4', price: 800, image: 'https://via.placeholder.com/150' },
-  { id: 5, name: 'Product 5', price: 900, image: 'https://via.placeholder.com/150' },
-  { id: 6, name: 'Product 6', price: 1000, image: 'https://via.placeholder.com/150' },
-  { id: 7, name: 'Product 7', price: 1100, image: 'https://via.placeholder.com/150' },
-  { id: 8, name: 'Product 8', price: 1200, image: 'https://via.placeholder.com/150' },
-  { id: 9, name: 'Product 9', price: 1300, image: 'https://via.placeholder.com/150' },
-  { id: 10, name: 'Product 10', price: 1400, image: 'https://via.placeholder.com/150' },
+  { id: 1, name: 'หมูสามชั้น', price: 59, image: '/picture/สามชั้น.jpg' },
+  { id: 2, name: 'หมูหมักน้ำมันงา', price: 69, image: '/picture/หมักงา.png' },
+  { id: 3, name: 'เนื้อวากิว', price: 99, image: '/picture/เนื้อวากิว.jpg' },
+  { id: 4, name: 'กุ้งแก้ว', price: 69, image: '/picture/กุ้งแก้ว.jpg' },
+  { id: 5, name: 'เต้าหู้ชีส', price: 49, image: '/picture/เต้าหู้.jpg' },
+  { id: 6, name: 'ไข่ไก่', price: 9, image: '/picture/ไข่ไก่.jpg' },
+  { id: 7, name: 'ผักกาด', price: 19, image: '/picture/ผักกาด.jpg' },
+  { id: 8, name: 'ผักบุ้ง', price: 19, image: '/picture/ผักบุ้ง.png' },
+  { id: 9, name: 'เฟรนช์ฟรายส์', price: 39, image: '/picture/เฟรนช์ฟรายส์.jpg' },
+  { id: 10, name: 'ไอศกรีม', price: 39, image: '/picture/ice cream.jpg' },
 ];
 
 function App() {
@@ -100,6 +100,9 @@ function App() {
     if (coupon === 'DISCOUNT10') {
       setDiscount(0.1);
       setDiscountError('');
+    } else if (coupon === 'DISCOUNT20') {
+      setDiscount(0.2);
+      setDiscountError('');
     } else {
       setDiscountError('Invalid coupon code.');
     }
@@ -110,31 +113,33 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="header text-2xl font-bold">Product List</h1>
-      <div className="product-list grid grid-cols-2 gap-4 p-4">
-        {productsData.map(product => (
-          <div key={product.id} className="product-item">
-            <img src={product.image} alt={product.name} className="mb-2" />
-            <h2>{product.name}</h2>
-            <p>Price: {product.price}฿</p>
-            <button onClick={() => addToCart(product)} className="bg-blue-500 text-white px-2 py-1">
+      <h1 className="header text-2xl font-bold">ยูนิเวอร์ซิตี้ หมูทะ</h1>
+        <div className="product-list grid grid-cols-2 gap-4 p-4">
+          {productsData.map(product => (
+            <div key={product.id} className="product-item">
+              <img src={product.image} alt={product.name} className="mb-2" />
+              <h2>{product.name}</h2>
+              <p>Price: {product.price}฿</p>
+              <div className="button-container">
+            <button onClick={() => addToCart(product)} className="add-to-cart-button bg-blue-500 text-white px-2 py-1">
               Add to Cart
             </button>
+            </div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-xl font-bold text-center">Shopping Cart</h2>
+      <h2 className="cart-title text-xl font-bold">สินค้าในตะกร้า</h2>
       <div className="cart p-4">
         {cart.length > 0 ? (
           cart.map(item => (
             <div key={item.id} className="flex justify-between border p-2">
               <span>{item.name}</span>
-              <span>Quantity: 
+              <span>จำนวน: 
                 <input
                   type="number"
                   value={item.quantity}
-                  min="1" // Prevent negative or zero quantities
+                  min="1"
                   onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
                   className="border w-12 ml-2"
                 />
@@ -146,13 +151,13 @@ function App() {
             </div>
           ))
         ) : (
-          <p>Your cart is empty</p>
+          <p>ตะกร้าสินค้าคุณว่างเปล่า</p>
         )}
         <div className="mt-4">
-          <p>Total: {total}฿</p>
-          <p>Shipping: 100฿</p>
-          <p>Discount: {discount * 100}%</p>
-          <p className="font-bold">Total with Shipping: {totalWithShipping}฿</p>
+          <p>ยอดรวม: {total}฿</p>
+          <p>ค่าขนส่ง: 100฿</p>
+          <p>คูปองส่วนลด: {discount * 100}%</p>
+          <p className="font-bold">ยอดรวมค่าจัดส่ง: {totalWithShipping}฿</p>
 
           <input
             type="text"
@@ -160,7 +165,7 @@ function App() {
             onBlur={(e) => handleApplyDiscount(e.target.value)}
             className="border p-2 mt-2"
           />
-          {discountError && <p className="text-red-500">{discountError}</p>} {/* Error message for invalid coupon */}
+          {discountError && <p className="text-red-500">{discountError}</p>}
         </div>
       </div>
     </div>
