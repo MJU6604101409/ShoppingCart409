@@ -95,7 +95,7 @@ function App() {
   };
 
   const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return; // Prevent setting quantity to less than 1
+    if (newQuantity < 1) return; 
     setCart(
       cart.map(item =>
         item.id === id ? { ...item, quantity: newQuantity } : item
@@ -175,7 +175,7 @@ function App() {
         </div>
       </div>
     
-    {/* กล่องแสดงตารางคูปองที่มุมขวาล่าง */}
+    {/* กล่องแสดงตารางคูปอง */}
     <div className="coupon-table fixed bottom-0 right-0 bg-gray-100 border p-4 m-4 shadow-lg">
         <h3 className="text-lg font-bold">ตารางคูปอง</h3>
         <ul>
