@@ -26,13 +26,13 @@ a:hover {
   color: #535bf2;
 }
 
-body {
+/* body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
+} */
 
 h1 {
   font-size: 3.2em;
@@ -69,4 +69,49 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+body {
+  height: 100%; /* ให้ความสูงของ html และ body เป็น 100% */
+  margin: 0; /* ลบ margin พื้นฐาน */
+  padding: 0; /* ลบ padding พื้นฐาน */
+  display: flex; /* ใช้ Flexbox สำหรับการจัดเรียง */
+  justify-content: center; /* จัดกลางในแนวนอน */
+  align-items: center; /* จัดกลางในแนวตั้ง */
+  
+}
+
+.App {
+  max-width: 1200px; /* กำหนดความกว้างสูงสุด */
+  width: 100%; /* ใช้ความกว้างเต็มที่ */
+  padding: 20px; /* ช่องว่างด้านใน */
+  box-sizing: border-box; /* ทำให้ padding ไม่ส่งผลต่อความกว้าง */
+}
+
+.header {
+  text-align: center; /* จัดกลางข้อความ */
+  margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+}
+
+.product-list {
+  display: grid; /* ใช้ Grid Layout */
+  grid-template-columns: repeat(5, 1fr); /* 5 คอลัมน์ */
+  gap: 20px; /* ระยะห่างระหว่างสินค้า */
+}
+
+.product-item {
+  border: 1px solid #ccc; /* เส้นขอบรอบสินค้า */
+  padding: 10px; /* ช่องว่างภายใน */
+  text-align: center; /* จัดข้อความให้อยู่กลาง */
+  border-radius: 5px; /* มุมโค้ง */
+  transition: box-shadow 0.3s; /* การเปลี่ยนแปลงการแสดงผลเมื่อเลื่อนเมาส์ */
+}
+
+.product-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อเลื่อนเมาส์ */
+}
+
+.product-item img {
+  max-width: 100%; /* ให้ภาพไม่เกินขนาดของคอลัมน์ */
+  height: auto; /* ปรับความสูงให้เหมาะสม */
 }

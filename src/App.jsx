@@ -110,10 +110,10 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="text-2xl font-bold text-center">Product List</h1>
+      <h1 className="header text-2xl font-bold">Product List</h1>
       <div className="product-list grid grid-cols-2 gap-4 p-4">
         {productsData.map(product => (
-          <div key={product.id} className="border p-4">
+          <div key={product.id} className="product-item">
             <img src={product.image} alt={product.name} className="mb-2" />
             <h2>{product.name}</h2>
             <p>Price: {product.price}฿</p>
