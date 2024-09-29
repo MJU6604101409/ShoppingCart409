@@ -69,7 +69,7 @@
 const coupons = [
   { code: 'DISCOUNT10', discount: 10 }, 
   { code: 'DISCOUNT20', discount: 20 }, 
-  { code: 'SHIPFREE', discount: 15 }     
+  { code: 'SHIPFREE', discount: 0 }     
 ];
 
 
@@ -107,7 +107,11 @@ function App() {
   const handleApplyDiscount = (coupon) => {
     const validCoupon = coupons.find(c => c.code === coupon);
     if (validCoupon) {
-      setDiscount(validCoupon.discount / 100); 
+      if (validCoupon.code === 'SHIPFREE') {
+        setDiscount(1); 
+      } else {
+        setDiscount(validCoupon.discount / 100); 
+      }
       setDiscountError('');
     } else {
       setDiscountError('Invalid coupon code.');
@@ -117,7 +121,8 @@ function App() {
   
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const totalWithShipping = total > 0 ? total + 100 - total * discount : 0;
+  const totalWithShipping = total > 0 ? total - (total * discount) + (discount === 1 ? 0 : 100) : 0;
+
 
   return (
     <div className="App">
@@ -183,7 +188,7 @@ function App() {
         <ul>
           {coupons.map(coupon => (
             <li key={coupon.code}>
-              <span>{coupon.code}: ลด {coupon.discount}%</span>
+              <span>{coupon.code}: ลด {coupon.discount !== 0 ? coupon.discount : 'ค่าจัดส่งฟรี'}</span>
             </li>
           ))}
         </ul>
