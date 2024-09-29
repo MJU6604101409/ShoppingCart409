@@ -67,10 +67,11 @@
 ];
 
 const coupons = [
-  { code: 'DISCOUNT10', discount: 0.1 },
-  { code: 'DISCOUNT20', discount: 0.2 },
-  { code: 'SHIPFREE', discount: 0.15 }
+  { code: 'DISCOUNT10', discount: 10 }, 
+  { code: 'DISCOUNT20', discount: 20 }, 
+  { code: 'SHIPFREE', discount: 15 }     
 ];
+
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -106,13 +107,14 @@ function App() {
   const handleApplyDiscount = (coupon) => {
     const validCoupon = coupons.find(c => c.code === coupon);
     if (validCoupon) {
-      setDiscount(validCoupon.discount);
+      setDiscount(validCoupon.discount / 100); 
       setDiscountError('');
     } else {
       setDiscountError('Invalid coupon code.');
       setDiscount(0);
     }
   };
+  
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalWithShipping = total > 0 ? total + 100 - total * discount : 0;
